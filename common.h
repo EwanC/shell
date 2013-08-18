@@ -1,3 +1,5 @@
+//Defines commonly used functions and libraries
+
 #ifndef COMMON_H
 #define COMMON_H
 
@@ -13,7 +15,7 @@
 #define MAXARGS 128
 #define MAXLINE 8192
 
-extern char **environ; //Environmental Vars
+extern char **environ; //Environmental variables
 
 void unix_error(char *msg);
 pid_t Fork(void);

@@ -20,11 +20,7 @@ void eval(char *cmdline){
  if(!builtin_command(argv)){
    if((pid = Fork()) == 0 ){  //Child job
 
-    //Set up handler for keyboard interrupts
-  if(signal(SIGINT,int_handler) == SIG_ERR)
-     unix_error("SIGINT handler init error");
-
-      if(execvp(argv[0],argv) < 0){
+      if(execvp(argv[0],argv) < 0){ //execte command
          printf("%s : Command not found.\n",argv[0]);
          exit(0);
       } 
@@ -45,10 +41,13 @@ void eval(char *cmdline){
 }
 
 //If first arg is a built in command run it and return true
+//
+//TODO define inbuilt commands in a more mordular way
+//
 int builtin_command(char **argv){
  int n;
  char *buf;
- if(!strcmp(argv[0],"quit") || !(strcmp(argv[0],":q")))  //Quit command
+ if(!strcmp(argv[0],"quit") || !(strcmp(argv[0],":q"))|| !(strcmp(argv[0],"exit")))  //Quit command
     exit(0);
  if(!strcmp(argv[0], "&"))    //Ignore singleton '&'
     return 1;
@@ -56,7 +55,7 @@ int builtin_command(char **argv){
     print_history();
     return 1;
   }
-  if((n=is_prev_command(argv[0])) > 0){
+  if((n=parse_prev_command(argv[0])) > 0){ //repeat prevois command
        buf = get_prev_cmd(n);
        if(buf == NULL)
          printf("No command record at %d\n",n);

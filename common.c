@@ -33,8 +33,8 @@ void sig_handler(int sig){
     return;
 }
 
-//Catches keyboard interrupt
+//Catches keyboard interrupt to keep parent shell process from exiting
 void int_handler(int sig){
-   printf("Caught keyboard\n");
-   exit(0);
+    printf("\n");
+    return;
 }
