@@ -19,6 +19,7 @@ void unix_error(char *msg);
 pid_t Fork(void);
 char *get_path(char *path, size_t size);
 void sig_handler(int sig);
+void int_handler(int sig);
 
 
 #endif

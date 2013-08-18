@@ -7,11 +7,10 @@ int main(){
   char *path;
   path = (char *)malloc(path_size);
   
-  //Set up handler for finishes child processes
+  //Set up handler for finished child processes
   if(signal(SIGCHLD,sig_handler) == SIG_ERR)
-     unix_error("signal handler init error");
+     unix_error("SIGCHLD handler init error");
   
-
 
   while(1){
   printf("%s> ",get_path(path,path_size));

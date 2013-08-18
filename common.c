@@ -33,3 +33,8 @@ void sig_handler(int sig){
     return;
 }
 
+//Catches keyboard interrupt
+void int_handler(int sig){
+   printf("Caught keyboard\n");
+   exit(0);
+}

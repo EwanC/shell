@@ -1,7 +1,8 @@
 #include "eval.h"
 #include "common.h"
-//Evaluates the command line
+#include "history.h"
 
+//Evaluates the command line
 void eval(char *cmdline){
  char *argv[MAXARGS]; //list of arguments
  char buf[MAXLINE]; //holds modified command line
@@ -9,14 +10,22 @@ void eval(char *cmdline){
  pid_t pid; //Process id
 
  strcpy(buf,cmdline);
+ 
+ add_command_to_history(buf); //Records command in history
+
  bg = parseline(buf, argv);
  if(argv[0]== NULL)
    return;            //Ignore empty lines
 
  if(!builtin_command(argv)){
    if((pid = Fork()) == 0 ){  //Child job
+
+    //Set up handler for keyboard interrupts
+  if(signal(SIGINT,int_handler) == SIG_ERR)
+     unix_error("SIGINT handler init error");
+
       if(execvp(argv[0],argv) < 0){
-         printf("%s: Command not found.\n",argv[0]);
+         printf("%s : Command not found.\n",argv[0]);
          exit(0);
       } 
     
@@ -37,11 +46,25 @@ void eval(char *cmdline){
 
 //If first arg is a built in command run it and return true
 int builtin_command(char **argv){
+ int n;
+ char *buf;
  if(!strcmp(argv[0],"quit") || !(strcmp(argv[0],":q")))  //Quit command
     exit(0);
  if(!strcmp(argv[0], "&"))    //Ignore singleton '&'
     return 1;
-
+ if(!strcmp(argv[0], "history")){    //prints command history
+    print_history();
+    return 1;
+  }
+  if((n=is_prev_command(argv[0])) > 0){
+       buf = get_prev_cmd(n);
+       if(buf == NULL)
+         printf("No command record at %d\n",n);
+       else
+         eval(buf);
+       return 1;    
+  }
+ 
  return 0;      //Not builtin command
 }
 
@@ -77,5 +100,3 @@ int parseline(char *buf, char **argv){
 
  return bg;
 }
-
-
