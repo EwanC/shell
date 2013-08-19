@@ -15,6 +15,7 @@ pid_t Fork(void){
 }
 
 
+
 //Gets the current directory from $Path
 char *get_path(char *path, size_t size){
   if(getcwd(path,size) == NULL)

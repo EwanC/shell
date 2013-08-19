@@ -1,7 +1,7 @@
 #include "eval.h"
 #include "common.h"
 #include "history.h"
-
+#include "builtin.h"
 //Evaluates the command line
 void eval(char *cmdline){
  char *argv[MAXARGS]; //list of arguments
@@ -18,7 +18,15 @@ void eval(char *cmdline){
    return;            //Ignore empty lines
 
  if(!builtin_command(argv)){
-   if((pid = Fork()) == 0 ){  //Child job
+     execute_cmd(argv, bg);
+ } 
+ return;
+}
+
+//Executes the command
+void execute_cmd(char **argv, int bg){
+ pid_t pid;
+ if((pid = Fork()) == 0 ){  //Child job
 
       if(execvp(argv[0],argv) < 0){ //execte command
          printf("%s : Command not found.\n",argv[0]);
@@ -36,36 +44,10 @@ void eval(char *cmdline){
      else
       printf("%d %s\n", pid, argv[0]);  
    } 
- } 
- return;
+
 }
 
-//If first arg is a built in command run it and return true
-//
-//TODO define inbuilt commands in a more mordular way
-//
-int builtin_command(char **argv){
- int n;
- char *buf;
- if(!strcmp(argv[0],"quit") || !(strcmp(argv[0],":q"))|| !(strcmp(argv[0],"exit")))  //Quit command
-    exit(0);
- if(!strcmp(argv[0], "&"))    //Ignore singleton '&'
-    return 1;
- if(!strcmp(argv[0], "history")){    //prints command history
-    print_history();
-    return 1;
-  }
-  if((n=parse_prev_command(argv[0])) > 0){ //repeat prevois command
-       buf = get_prev_cmd(n);
-       if(buf == NULL)
-         printf("No command record at %d\n",n);
-       else
-         eval(buf);
-       return 1;    
-  }
- 
- return 0;      //Not builtin command
-}
+
 
 //Parses the command line and builds the argv array
 int parseline(char *buf, char **argv){

@@ -9,8 +9,10 @@
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <string.h>
 #include <errno.h>
+#include <fcntl.h>
 
 #define MAXARGS 128
 #define MAXLINE 8192
