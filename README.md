@@ -12,6 +12,8 @@ Builtin commands:
 
     '!%d' where %d is an int - prefix an int with '!' to rerun the %dth command entered 
 
+    'cd'  - followed by the directroy to change to
+
 
 Features:
 

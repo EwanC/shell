@@ -18,6 +18,10 @@ int builtin_command(char **argv){
     print_history();
     return 1;
   }
+  if(!strcmp(argv[0],"cd")){   //Change directory
+     change_dir(argv);
+     return 1;
+  }
   if(prev_cmd(argv) == 1)    //user want to repeat previous command
     return 1;
 
@@ -132,4 +136,20 @@ int stdout_redirect(char **argv){
    *argv++;
    }
   return 0;
+}
+
+//Changes directory
+//If no directoy or '.' is specified go to home dir
+void change_dir(char **argv){
+   if(argv[1] && strcmp(argv[1],".")){
+    if(chdir(argv[1]) < 0)
+       unix_error("Error changing directory");
+  }
+  else{
+      char *cmd = malloc(50 * sizeof(char));
+      cmd = "/home/ewan";
+      
+      if(chdir(cmd) < 0)
+       unix_error("Error changing directory");
+  }
 }
