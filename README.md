@@ -33,9 +33,12 @@ Pipeling is currently supported using the standard '|' symbol but at the moment 
 
 
 TODO:
-Improve builting commands - more arguments, help, more commands, etc
 
 Allow for inline editing.   
+
+
+
+ISSUES:
 
 Author: Ewan Crawford
         ewan.cr@gmail.com

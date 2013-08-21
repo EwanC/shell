@@ -5,21 +5,28 @@
 #include "pipe.h"
 
 //If first arg is a built in command run it and return true
-//
-//TODO define inbuilt commands in a more mordular way
-//
 int builtin_command(char **argv){
  
  if(!strcmp(argv[0],"quit") || !(strcmp(argv[0],":q"))|| !(strcmp(argv[0],"exit")))  //Quit command
     exit(0);
  if(!strcmp(argv[0], "&"))    //Ignore singleton '&'
     return 1;
+ if(!strcmp(argv[0], "help")){    //print help info
+    print_help();
+    return 1;
+ }
  if(!strcmp(argv[0], "history")){    //prints command history
-    print_history();
+    if(argv[1] && !(strcmp(argv[1],"--help")))
+       printf("prints history of recent commands\nPrevious commands can be repeated using !follwed by the command index\nNo arguments are available\n");
+    else
+       print_history();
     return 1;
   }
   if(!strcmp(argv[0],"cd")){   //Change directory
-     change_dir(argv);
+      if(argv[1] && !(strcmp(argv[1],"--help")))
+        printf("cd [path] - changes the current working directory\nLeave path blank to go to home directory\n");
+      else
+        change_dir(argv);
      return 1;
   }
   if(prev_cmd(argv) == 1)    //user want to repeat previous command
@@ -38,7 +45,7 @@ int builtin_command(char **argv){
 int prev_cmd(char **argv){
   int n;
   char *buf;
-
+ 
   if((n=parse_prev_command(argv[0])) > 0){ //repeat prevoious command
        buf = get_prev_cmd(n);
        if(buf == NULL)
@@ -143,13 +150,28 @@ int stdout_redirect(char **argv){
 void change_dir(char **argv){
    if(argv[1] && strcmp(argv[1],".")){
     if(chdir(argv[1]) < 0)
-       unix_error("Error changing directory");
+       printf("Could not find directory\n");
   }
   else{
-      char *cmd = malloc(50 * sizeof(char));
-      cmd = "/home/ewan";
-      
-      if(chdir(cmd) < 0)
-       unix_error("Error changing directory");
+      char *home = malloc(50 * sizeof(char));
+      home = getenv("HOME");
+      if(chdir(home) < 0)
+       printf("Could not find directory\n");
   }
+}
+
+//Prints help info
+void print_help(){
+  printf("UNXI Shell 1.0 - developed by Ewan Crawford\n\n");
+  printf("Builtin Commands\n");
+  printf("------------------------\n");
+  printf("cd [path] [--help] - Changes the current working directory\n");
+  printf("[command] & - This creates a background process with specifies pid. All processes can be seen with command 'ps'\n");
+  printf("history [--help] - Displays a list of previous recent commands\n");
+  printf("![n] - Repeates the command at index n from command history\n");
+  printf("[command] > [file] - The '>' symbol redirects the output of a command to a specified file\n");
+  printf("[command] < [file] - The '<' symbol takes the input of a command from a specified file\n");
+  printf("[command] | [command] - '|' uses the output of the first command as the output of the second, called piping. e.g. ls | grep .txt'\n");
+  printf("\nTo quit the shell use ':q','quit' or 'exit'. NOTE:This will not end background processes\n");
+
 }
