@@ -69,14 +69,14 @@ void print_history(){
    if(h_count>HISTORY_MAX_SIZE){
      for (i = 1; i < HISTORY_MAX_SIZE; i++)
      {
-    	printf("%d: %s",(h_count - HISTORY_MAX_SIZE + i +1),history[i % HISTORY_MAX_SIZE]);
+    	printf("%d: %s\n",(h_count - HISTORY_MAX_SIZE + i +1),history[i % HISTORY_MAX_SIZE]);
      }
 
    }
    else{
     for (i = 0; i < h_count; i++)
     {
-    	printf("%d: %s",(i+1),history[i]);
+    	printf("%d: %s\n",(i+1),history[i]);
     }
    }
 }

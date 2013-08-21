@@ -22,7 +22,7 @@ pid_t Fork(void){
 char *get_path(char *path, size_t size){
   if(getcwd(path,size) == NULL)
       unix_error("Error getting working directory");
-  
+  strcat(path, "> ");
   return path;
 }
 

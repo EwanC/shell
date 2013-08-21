@@ -7,7 +7,6 @@ TARGET = my_shell
 all: $(TARGET)
 
 $(TARGET): $(SOURCES)
-	$(CC) $(SOURCES) -o $(TARGET) 
-
+	$(CC) $(SOURCES) -o $(TARGET) -lreadline -lncurses
 clean: 
 	-rm *.o 	

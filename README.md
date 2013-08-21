@@ -32,13 +32,31 @@ These can be uses in conjuntion but '<' must precede '>' e.g sort < dir.txt > so
 Pipeling is currently supported using the standard '|' symbol but at the moment only one pipeline can be used per command
 
 
+
+
+Thanks to the GNU readline library for
+
+Inline editing.
+
+Use up and down arrow to scroll through previous commands
+
+
 TODO:
 
-Allow for inline editing.   
+Tab completion
 
+mulitple pipes
 
+history optional parameters
+
+fg & bg commands
+
+more advanced IO redirection
 
 ISSUES:
+
+During piping there is a problem reaping child processes.
+
 
 Author: Ewan Crawford
         ewan.cr@gmail.com

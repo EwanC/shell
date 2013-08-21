@@ -14,6 +14,7 @@ void eval(char *cmdline){
  add_command_to_history(buf); //Records command in history
 
  bg = parseline(buf, argv);
+
  if(argv[0]== NULL)
    return;            //Ignore empty lines
 
@@ -55,7 +56,7 @@ int parseline(char *buf, char **argv){
  char argc;      //# of args
  int bg;         //background job?
 
- buf[strlen(buf)-1] = ' '; //replace trailing '\n' with a space
+ buf[strlen(buf)] = ' '; //replace trailing '\n' with a space
  while (*buf && (*buf == ' ')) //Ignore leading spaces
    buf++;
  
