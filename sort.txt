@@ -1,0 +1,27 @@
+total 136
+drwxrwxr-x 3 ewan ewan  4096 Aug 21 13:29 .
+drwxr-xr-x 4 ewan ewan  4096 Aug 17 14:01 ..
+-rw-rw-r-- 1 ewan ewan  3464 Aug 21 11:22 builtin.c
+-rw-rw-r-- 1 ewan ewan   172 Aug 19 13:26 builtin.h
+-rw-rw-r-- 1 ewan ewan  3460 Aug 21 11:45 builtin.o
+-rw-rw-r-- 1 ewan ewan   845 Aug 21 13:00 common.c
+-rw-rw-r-- 1 ewan ewan   530 Aug 19 16:15 common.h
+-rw-rw-r-- 1 ewan ewan  1908 Aug 21 13:00 common.o
+-rw-rw-r-- 1 ewan ewan  1839 Aug 21 13:21 eval.c
+-rw-rw-r-- 1 ewan ewan   143 Aug 19 14:05 eval.h
+-rw-rw-r-- 1 ewan ewan  2176 Aug 21 13:28 eval.o
+drwxrwxr-x 8 ewan ewan  4096 Aug 19 16:23 .git
+-rw-rw-r-- 1 ewan ewan  2435 Aug 18 21:07 history.c
+-rw-rw-r-- 1 ewan ewan   245 Aug 18 21:03 history.h
+-rw-rw-r-- 1 ewan ewan  2220 Aug 18 21:11 history.o
+-rw-rw-r-- 1 ewan ewan 18031 Aug 17 16:31 LICENSE
+-rw-rw-r-- 1 ewan ewan   712 Aug 18 20:50 main.c
+-rw-rw-r-- 1 ewan ewan  1672 Aug 18 21:11 main.o
+-rw-rw-r-- 1 ewan ewan   180 Aug 21 11:20 Makefile
+-rwxrwxr-x 1 ewan ewan 13080 Aug 21 13:28 my_shell
+-rw-rw-r-- 1 ewan ewan  1911 Aug 21 13:28 pipe.c
+-rw-rw-r-- 1 ewan ewan    93 Aug 21 12:37 pipe.h
+-rw-rw-r-- 1 ewan ewan  2084 Aug 21 13:28 pipe.o
+-rw-rw-r-- 1 ewan ewan  1000 Aug 19 16:22 README.md
+-rw-r--r-- 1 ewan ewan     0 Aug 21 13:29 sort.txt
+-rw------- 1 ewan ewan 12288 Aug 21 12:05 .swp

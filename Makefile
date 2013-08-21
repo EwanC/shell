@@ -1,6 +1,6 @@
 CC = gcc
 
-SOURCES = main.o eval.o common.o history.o builtin.o
+SOURCES = main.o eval.o common.o history.o builtin.o pipe.o
 
 TARGET = my_shell
 

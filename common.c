@@ -2,8 +2,10 @@
 
 //Unix style error
 void unix_error(char *msg){
-  fprintf(stderr, "%s: %s\n", msg, strerror(errno));
-  exit(0);
+  if(errno != 0){
+    fprintf(stderr, "%s: %s\n", msg, strerror(errno));
+    exit(0);
+  }
 }
 
 //Error handling wrapper for fork()

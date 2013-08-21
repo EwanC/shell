@@ -28,7 +28,7 @@ void execute_cmd(char **argv, int bg){
  pid_t pid;
  if((pid = Fork()) == 0 ){  //Child job
 
-      if(execvp(argv[0],argv) < 0){ //execte command
+      if(execvp(argv[0],argv) < 0){ //execute command
          printf("%s : Command not found.\n",argv[0]);
          exit(0);
       } 

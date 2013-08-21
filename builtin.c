@@ -2,6 +2,7 @@
 #include "eval.h"
 #include "history.h"
 #include "builtin.h"
+#include "pipe.h"
 
 //If first arg is a built in command run it and return true
 //
@@ -22,6 +23,9 @@ int builtin_command(char **argv){
 
   if(IO_redirect(argv)==1)  //user wants to redirect IO
      return 1;
+
+  if(check_pipe(argv) ==1) //user command cointains pipe
+    return 1;
 
  return 0;      //Not builtin command
 }
