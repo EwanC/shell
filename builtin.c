@@ -59,8 +59,8 @@ int prev_cmd(char **argv){
 
 //Hanldes IO redirection
 int IO_redirect(char **argv){
-   int fdout, fdin,defin,defout;
-   int in,out;
+   int fdout, fdin,defin,defout,deferr;
+   int in,out,err;
 
    in =stdin_redirect(argv);  //finds pos of stdin redirect symbol
    out =stdout_redirect(argv); //finds pos of stdout redirect symbol
@@ -74,16 +74,31 @@ int IO_redirect(char **argv){
      else{
         defin = dup(0);
         defout = dup(1);
+        if (!strcmp(argv[out],">&")) //redirect stderr as well as stdout
+           err= 1;
+        if (err)
+          deferr = dup(2);
         fdin = open(argv[in+1],O_RDONLY); //open input file
-        fdout = creat(argv[out+1],0644); //file to write stdout to
+        if (!strcmp(argv[out],">>")){  //append stdout to a existing file
+           fdout = open(argv[out+1],O_APPEND|O_RDWR);
+        }
+        else{
+           fdout = creat(argv[out+1],0644);
+        }
         dup2(fdin,0);  //redirect input to the file
         dup2(fdout,1); //redirect output to the file
+        if (err)
+         dup2(fdout,2);
         argv[in] = NULL;  //execute command before redirect symbol
         execute_cmd(argv,0);
         dup2(defin,0);  //redirect input back to stdin
         dup2(defout,1); //redirect output back to stdout
+        if (err)
+          dup2(deferr,2);
         close(fdin);
         close(fdout);
+        if (err)
+        close(deferr);
         close(defin);
         close(defout);
      }
@@ -104,13 +119,28 @@ int IO_redirect(char **argv){
    //case where there is onlt stdout redirection
    else if(out > 0){
       defout = dup(1);
-      fdout = creat(argv[out+1],0644);
+      if (!strcmp(argv[out],">&")) //Redirect stderr to file as well as stdout
+        err= 1;
+      if (err)
+         deferr = dup(2);
+      if (!strcmp(argv[out],">>")){  //Append stdout to an existing file
+        fdout = open(argv[out+1],O_APPEND|O_RDWR);
+      }
+      else{
+        fdout = creat(argv[out+1],0644);
+      }
       dup2(fdout,1); 
+      if (err)
+         dup2(fdout,2);
       argv[out] = NULL;
       execute_cmd(argv,0);
       dup2(defout,1); 
+      if (err)
+        dup2(deferr,2);
       close(fdout);
       close(defout);
+      if (err)
+        close(deferr);
       return 1;
    }
    return 0;
@@ -131,11 +161,11 @@ int stdin_redirect(char **argv){
   return 0;
 }
 
-//returns position of stdout redirect token '>' or 0 if not present
+//returns position of a stdout redirect token or 0 if not present
 int stdout_redirect(char **argv){
  int n =0;
  while(*argv != NULL){
-    if(!strcmp(*argv,">")){
+    if((!strcmp(*argv,">")) || (!strcmp(*argv,">>")) || (!strcmp(*argv,">&"))){
       if((*(argv+1) != NULL)&&(*(argv-1) != NULL)) //token must be have a argument before and after
        return n;
     }

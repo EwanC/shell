@@ -22,11 +22,14 @@ The shell currently reapes finsihed background processes/
 The shell purosely does not exit on Ctrl-C, use a command to quit instead
 
 
-Simple IO redirection is also currently supported 
+IO redirection is also currently supported 
 '>' will redirect the output of a command to a specifies file e.g. ls > dir.txt
 '>' will redirect stdin of a command from a file eg. sort < dir.txt
+'>>' will append stdout to an existing file 
+'>&' will redirect stderr as well as stderr the specified file
 
-These can be uses in conjuntion but '<' must precede '>' e.g sort < dir.txt > sorted.txt
+
+These can be uses in conjuntion but '<' must precede '>', '>>' or '>&' e.g sort < dir.txt >& sorted.txt
 
 
 Pipeling is currently supported using the standard '|' symbol but at the moment only one pipeline can be used per command
@@ -34,11 +37,11 @@ Pipeling is currently supported using the standard '|' symbol but at the moment 
 
 
 
-Thanks to the GNU readline library for
+Thanks to the GNU readline library for:
 
-Inline editing.
+  Inline editing.
 
-Use up and down arrow to scroll through previous commands
+  Use of up and down arrow to scroll through previous commands
 
 
 TODO:
@@ -46,12 +49,6 @@ TODO:
 Tab completion
 
 mulitple pipes
-
-history optional parameters
-
-fg & bg commands
-
-more advanced IO redirection
 
 ISSUES:
 
