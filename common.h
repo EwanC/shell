@@ -13,6 +13,8 @@
 #include <string.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 #define MAXARGS 128
 #define MAXLINE 8192
@@ -24,6 +26,6 @@ pid_t Fork(void);
 char *get_path(char *path, size_t size);
 void sig_handler(int sig);
 void int_handler(int sig);
-
+void *Malloc(int size);
 
 #endif

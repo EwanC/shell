@@ -15,6 +15,10 @@ int builtin_command(char **argv){
     print_help();
     return 1;
  }
+ if(!strcmp(argv[0], "setenv")){    //set enivronmental var
+   set_env(argv);
+   return 1;
+ }
  if(!strcmp(argv[0], "history")){    //prints command history
     if(argv[1] && !(strcmp(argv[1],"--help")))
        printf("prints history of recent commands\nPrevious commands can be repeated using !follwed by the command index\nNo arguments are available\n");
@@ -190,6 +194,29 @@ void change_dir(char **argv){
   }
 }
 
+
+//sets an environmental variables
+void set_env(char **argv){
+  if(!strcmp(argv[1],"--help")){
+    printf("Command of form 'setenv [variable] [value]'\n");
+    printf("Where a new environmental vaiable is set to the specified value\n");
+    printf("You can not overwirte existing environmental variable unless you have created them\n");
+    printf("e.g. setenv Root /usr/bin\n");
+    printf("Hint: you can use the printenv command to see all your environmental variables\n\n");
+    return;
+  }
+
+  if(argv[1] && argv[2]){
+    if(setenv(argv[1],argv[2],1)<0)
+       unix_error("Error setting enivronmental variable");
+    else
+      printf("Environmental variable set\n");
+  }
+}
+
+
+
+
 //Prints help info
 void print_help(){
   printf("UNXI Shell 1.0 - developed by Ewan Crawford\n\n");
@@ -197,8 +224,9 @@ void print_help(){
   printf("------------------------\n");
   printf("cd [path] [--help] - Changes the current working directory\n");
   printf("[command] & - This creates a background process with specifies pid. All processes can be seen with command 'ps'\n");
-  printf("history [--help] - Displays a list of previous recent commands\n");
+  printf("[command] > [file] - The '>' symbol redirects the output of a command to a specified file\n");
   printf("![n] - Repeates the command at index n from command history\n");
+  printf("setenv [variable] [value] [--help] - sets the an new enivronmental vaiable to a specified value\n");
   printf("[command] > [file] - The '>' symbol redirects the output of a command to a specified file\n");
   printf("[command] < [file] - The '<' symbol takes the input of a command from a specified file\n");
   printf("[command] | [command] - '|' uses the output of the first command as the output of the second, called piping. e.g. ls | grep .txt'\n");

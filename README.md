@@ -14,13 +14,14 @@ Builtin commands:
 
     'cd'  - followed by the directroy to change to
 
+    'setenv [variable] [value]' - crate an environmental variable of specified value
+
 
 Features:
 
 The shell currently reapes finsihed background processes/
 
 The shell purosely does not exit on Ctrl-C, use a command to quit instead
-
 
 IO redirection is also currently supported 
 '>' will redirect the output of a command to a specifies file e.g. ls > dir.txt
@@ -41,14 +42,18 @@ Thanks to the GNU readline library for:
 
   Inline editing.
 
-  Use of up and down arrow to scroll through previous commands
+  Use of up and down arrow to scroll through previous commands.
+
+  Tab completion for files and builtin commands.
 
 
 TODO:
 
-Tab completion
+Tab completion for all commands
 
 mulitple pipes
+
+check return values of all sysyem calls
 
 ISSUES:
 

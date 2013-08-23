@@ -6,6 +6,7 @@ int prev_cmd(char **argv);
 int stdin_redirect(char **argv);
 int stdout_redirect(char **argv);
 void change_dir(char **argv);
+void set_env(char **argv);
 void print_help();
 
 #endif

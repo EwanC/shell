@@ -1,7 +1,7 @@
 #include "eval.h"
 #include "common.h"
-#include <readline/readline.h>
-#include <readline/history.h>
+#include "completer.h"
+
 
 
 int main(){
@@ -18,9 +18,12 @@ int main(){
   if(signal(SIGINT,int_handler) == SIG_ERR)
      unix_error("SIGINT handler init error");
 
+  init_readline(); //bind our complet
+
+
   while(1){
      cmdline = readline(get_path(path,path_size));
-     
+
      if(cmdline && *cmdline)
        add_history(cmdline);
 

@@ -41,3 +41,15 @@ void int_handler(int sig){
     printf("\n");
     return;
 }
+
+void *Malloc (int size)
+{
+    void *buf;
+ 
+    buf = malloc (size);
+    if (!buf) {
+        unix_error("Malloc Error");
+    }
+ 
+    return buf;
+}
