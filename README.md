@@ -35,16 +35,11 @@ These can be uses in conjuntion but '<' must precede '>', '>>' or '>&' e.g sort 
 
 Pipeling is currently supported using the standard '|' symbol but at the moment only one pipeline can be used per command
 
+Tab completeion for commands & files
 
+Inline editing
 
-
-Thanks to the GNU readline library for:
-
-  Inline editing.
-
-  Use of up and down arrow to scroll through previous commands.
-
-  Tab completion for files and builtin commands.
+up and down arrows to scroll through commands
 
 
 TODO:
@@ -59,6 +54,7 @@ ISSUES:
 
 During piping there is a problem reaping child processes.
 
+tab completeion displays some options which aren't applicable
 
 Author: Ewan Crawford
         ewan.cr@gmail.com
