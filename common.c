@@ -4,7 +4,7 @@
 void unix_error(char *msg){
   if(errno != 0){
     fprintf(stderr, "%s: %s\n", msg, strerror(errno));
-    exit(0);
+    exit(0); 
   }
 }
 
@@ -33,7 +33,7 @@ void sig_handler(int sig){
               ;
     if(errno != ECHILD)
     	unix_error("Error reaping child");
-    return;
+  return;
 }
 
 //Catches keyboard interrupt to keep parent shell process from exiting
@@ -42,14 +42,13 @@ void int_handler(int sig){
     return;
 }
 
+//Error handling wrapper for malloc()
 void *Malloc (int size)
 {
     void *buf;
- 
     buf = malloc (size);
     if (!buf) {
         unix_error("Malloc Error");
     }
- 
     return buf;
 }

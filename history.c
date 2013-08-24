@@ -21,7 +21,7 @@ void add_command_to_history(char *cmd){
   return;
 }
 
-//Finds and returns the command entered at count n+1
+//Finds and returns the command entered at count n-1
 char *get_prev_cmd(int n){
 	n--;     //Decrement n, since the first command is at 0 not 1
   char *cmd;  //Pointer to command, if found 

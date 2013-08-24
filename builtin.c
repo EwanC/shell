@@ -4,10 +4,10 @@
 #include "builtin.h"
 #include "pipe.h"
 
-//If first arg is a built in command run it and return true
+//executes built in commands
 int builtin_command(char **argv){
  
- if(!strcmp(argv[0],"quit") || !(strcmp(argv[0],":q"))|| !(strcmp(argv[0],"exit")))  //Quit command
+ if(!strcmp(argv[0],"quit") || !(strcmp(argv[0],":q"))|| !(strcmp(argv[0],"exit")))  //Quit commands
     exit(0);
  if(!strcmp(argv[0], "&"))    //Ignore singleton '&'
     return 1;
@@ -219,17 +219,21 @@ void set_env(char **argv){
 
 //Prints help info
 void print_help(){
-  printf("UNXI Shell 1.0 - developed by Ewan Crawford\n\n");
+  printf("\nWee UNIX Shell 1.0 - developed by Ewan Crawford\n\n\n");
   printf("Builtin Commands\n");
   printf("------------------------\n");
   printf("cd [path] [--help] - Changes the current working directory\n");
-  printf("[command] & - This creates a background process with specifies pid. All processes can be seen with command 'ps'\n");
-  printf("[command] > [file] - The '>' symbol redirects the output of a command to a specified file\n");
+  printf("[command] & - This runs a process in the background and displays its pid. All processes can be seen with command 'ps'\n");
+  printf("history [--help] - diplays the most recent commands used with an index that can be used to repeat them.\n");
   printf("![n] - Repeates the command at index n from command history\n");
   printf("setenv [variable] [value] [--help] - sets the an new enivronmental vaiable to a specified value\n");
   printf("[command] > [file] - The '>' symbol redirects the output of a command to a specified file\n");
   printf("[command] < [file] - The '<' symbol takes the input of a command from a specified file\n");
-  printf("[command] | [command] - '|' uses the output of the first command as the output of the second, called piping. e.g. ls | grep .txt'\n");
-  printf("\nTo quit the shell use ':q','quit' or 'exit'. NOTE:This will not end background processes\n");
-
+  printf("[command] >> [file] - The '>>' symbol redirects the output of a command to a specified file and APPENDS it to the end.\n");
+  printf("[command] >& [file] - The '>&' symbol redirects the output and error messages of a command to a specified file\n");
+  printf("[command] | [command] - '|' uses the output of the first command as the input of the second, called piping. e.g. ls | grep .txt'\n");
+  printf("\n------------------------\n\n");
+  printf("To quit the shell use ':q','quit' or 'exit'. NOTE:This will not end background processes\n");
+  printf("You can use tab completion to see possile commands by pressing 'tab' twice\n");
+  printf("The up and down arrows can also be used to scroll through recent commands\n\n");
 }

@@ -2,6 +2,7 @@
 #include "common.h"
 #include "history.h"
 #include "builtin.h"
+
 //Evaluates the command line
 void eval(char *cmdline){
  char *argv[MAXARGS]; //list of arguments
@@ -28,7 +29,6 @@ void eval(char *cmdline){
 void execute_cmd(char **argv, int bg){
  pid_t pid;
  if((pid = Fork()) == 0 ){  //Child job
-
       if(execvp(argv[0],argv) < 0){ //execute command
          printf("%s : Command not found.\n",argv[0]);
          exit(0);

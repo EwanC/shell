@@ -9,6 +9,7 @@ static char *commands[2500]; //holds list of possible commands
 
 //intialise completion
 void init_readline(){
+
  //Allow confitional parsing of the ~/.inputrc file. */
  rl_readline_name = "Shell";
  
@@ -24,6 +25,7 @@ static char** shell_completion(const char* text,int start,int end){
  char **matches;
  matches = (char **)NULL;
 
+ //link to command generator
  if(start==0)
    matches = rl_completion_matches((char*)text, &command_generator);
  else
@@ -64,23 +66,24 @@ char *dupstr (char *s) {
   return (r);
 }
 
+//Populates the list of commands
 void get_command_list(){
-  char** path;
-  DIR *dir;
+  char** path;   //list of paths containing shell executables
+  DIR *dir;     
   char *temp = (char *)Malloc(100 * sizeof(char));
   struct dirent *ent;
   struct stat filestat;
   int n =0;
   path = split_path(); //gets list of directorys conataing commands
 
-  while(**path){
-    if((dir = opendir(*path))==NULL){
+  while(**path){  //For every file path
+    if((dir = opendir(*path))==NULL){    //Opend directory    
       printf("%s\n",*path );
       unix_error("ERROR Opening dir");
     }
-    else{
-      while((ent = readdir(dir)) != NULL){
-          if((ent->d_type == DT_REG)){
+    else{                         
+      while((ent = readdir(dir)) != NULL){  //read each directory entry
+          if((ent->d_type == DT_REG)){      
             strcpy(temp,*path);
             strcat(temp,"/");
             if(stat(strcat(temp,ent->d_name),&filestat)==0 && (filestat.st_mode & S_IXUSR)){
@@ -97,7 +100,8 @@ void get_command_list(){
   commands[n++] = "\0";
 }
 
-
+//Splits the path environmental variable up into its components and returns
+//them as individual strings
 char **split_path(){
   char* pPath;
   static char *dirs[MAX_PATHS];
@@ -108,7 +112,7 @@ char **split_path(){
   }
   int n=0;
   char* result;
-  result = strtok((pPath),":"); 
+  result = strtok((pPath),":");  //paths are delimited by ':'
   dirs[n] = result; 
 
  //splits path into it's component directorys

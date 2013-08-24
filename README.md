@@ -1,27 +1,32 @@
-shell
-=====
+Wee UNIX shell                                      Ewan Crawford
+==============
 
-Project to build a UNIX shell from scratch.
+Lerning project to build a UNIX shell from scratch.
 
-Builtin commands:
-  'quit','exit' or ':q'     - to quit shell
-   
-   'history'                - view prevoiusly entered commands
+Can be run from the Weeshell executable in the command line.
+
+
+Builtin commands
+------------------------------------------------------
+   'quit','exit' or ':q'     - Quits the  shell
+    
+   'history'                 - Displays previously entered commands
   
-    '(%) &''            - use '&' as an argument at the end of any command to run it in the background.
+   '[command] &'             - use '&' as an argument at the end of any command to run it in the background.
 
-    '!%d' where %d is an int - prefix an int with '!' to rerun the %dth command entered 
+    '![index]'               - prefix an int with '!' to rerun the command at that index. Indexes can be viewed with the history command
 
-    'cd'  - followed by the directroy to change to
+    'cd [path]'              - changes the directory to the specified path. 'cd .' will take you to your home directory. 'cd ..' will take you back a level.
 
-    'setenv [variable] [value]' - crate an environmental variable of specified value
+    'setenv [variable] [value]' - crate an environmental variable of specified value. Note enivironmental variables cannot be changed unless you have created them.
 
 
-Features:
+Features
+-------------------------------------------------------
 
-The shell currently reapes finsihed background processes/
+The shell will reap background processes.
 
-The shell purosely does not exit on Ctrl-C, use a command to quit instead
+The shell purposly does not exit on Ctrl-C, use a command to quit instead, but will terminate all child processes
 
 IO redirection is also currently supported 
 '>' will redirect the output of a command to a specifies file e.g. ls > dir.txt
@@ -33,28 +38,22 @@ IO redirection is also currently supported
 These can be uses in conjuntion but '<' must precede '>', '>>' or '>&' e.g sort < dir.txt >& sorted.txt
 
 
-Pipeling is currently supported using the standard '|' symbol but at the moment only one pipeline can be used per command
+Pipeling is currently supported using the standard '|' symbol but at the moment only one pipeline can be used per command.
 
-Tab completeion for commands & files
+Tab completeion for commands although there is some improvement to be done here as some commands are missing and some shouldn't be there.
 
-Inline editing
-
-up and down arrows to scroll through commands
+Thanks to the GNU readline and history libraries there is also inline editing and the ability to scroll through recent commands with the up and doen arrows.
 
 
-TODO:
+IMPROVEMENTS
+-------------------------------------------------------
 
-Tab completion for all commands
+Allow multiple pipes per command.
 
-mulitple pipes
+Improve tab completion results.
 
-check return values of all sysyem calls
 
-ISSUES:
 
-During piping there is a problem reaping child processes.
-
-tab completeion displays some options which aren't applicable
 
 Author: Ewan Crawford
         ewan.cr@gmail.com

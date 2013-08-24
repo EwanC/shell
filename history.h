@@ -1,7 +1,7 @@
 #ifndef HISTORY_H
 #define HISTORY_H
 
-//maximum number of previous commands stored
+//Maximum number of previous commands stored
 #define HISTORY_MAX_SIZE 20   
 
 void add_command_to_history(char *cmd);
