@@ -1,4 +1,4 @@
-Wee UNIX shell                                      Ewan Crawford
+Wee UNIX shell                                      
 ==============
 
 Lerning project to build a UNIX shell from scratch.
